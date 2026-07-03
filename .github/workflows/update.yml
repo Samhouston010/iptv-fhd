@@ -16,6 +16,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Ensure ffmpeg is installed
+        run: command -v ffprobe || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+
       - name: Update playlist
         run: python update.py
 
