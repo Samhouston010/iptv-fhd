@@ -132,6 +132,8 @@ def main():
     survivors_m3u = run_iptv_checker(raw_m3u)
     alive_count = survivors_m3u.count("#EXTINF")
     print(f"  {alive_count} alive, {len(fhd) - alive_count} dead removed")
+    if alive_count == 0:
+        raise SystemExit("checker returned 0 alive streams — refusing to overwrite the playlist")
 
     # Recompute EPG sources / stats from surviving tvg-id's
     from collections import Counter
