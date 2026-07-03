@@ -1678,74 +1678,17 @@ http://stream.apa.tv/apastream/index.m3u8
 https://amg02333-pbs-amg02333c9-firetv-us-4249.playouts.now.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="ArabiTV.es" group-title="General" tvg-country="ES" tvg-quality="1080p",Arabí TV [ES] [1080p]
 https://streamtv2.elitecomunicacion.cloud:3628/live/arabitv2025live.m3u8
-#EXTINF:-1 tvg-id="ArenaFight.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Fight [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaFight/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport2.ba" group-title="Sports" tvg-country="BA" tvg-quality="1080p",Arena Sport 2 [BA] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport2BH/index.m3u8
 #EXTINF:-1 tvg-id="apartTV.lu" group-title="Lifestyle" tvg-country="LU" tvg-quality="1080p",apart TV [LU] [1080p]
 https://2-fss-2.streamhoster.com/pl_124/206820-4338160-1/playlist.m3u8
-#EXTINF:-1 tvg-id="ArenaSport1.ba" group-title="Sports" tvg-country="BA" tvg-quality="1080p",Arena Sport 1 [BA] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport1BH/index.m3u8
 #EXTINF:-1 tvg-id="ApostropheTV.ua" group-title="News" tvg-country="UA" tvg-quality="1080p",Apostrophe TV [UA] [1080p]
 #EXTVLCOPT:http-user-agent=curl/8.16.0
 https://ext.cdn.nashnet.tv/228.0.2.165/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport3.hr" group-title="Sports" tvg-country="HR" tvg-quality="1080p",Arena Sport 3 [HR] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/AS3HRHD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport1.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 1 [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport1HD/index.m3u8
 #EXTINF:-1 tvg-id="Antena1.ro" group-title="General" tvg-country="RO" tvg-quality="1080p",Antena 1 [RO] [1080p]
 https://hls.rundletv.eu.org/LIVE$Antena1/6.m3u8/Level/300720051?end=END&start=LIVE
-#EXTINF:-1 tvg-id="ArenaSport4.hr" group-title="Sports" tvg-country="HR" tvg-quality="1080p",Arena Sport 4 [HR] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/AS4HRHD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport3Premium.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 3 Premium [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaPremium3HD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport2.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 2 [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport2HD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport4.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 4 [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport4HD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport2Premium.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 2 Premium [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaPremium2HD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport4.ba" group-title="Sports" tvg-country="BA" tvg-quality="1080p",Arena Sport 4 [BA] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport4BH/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport4Premium.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 4 Premium [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/SK1SRHD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport5.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 5 [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport5HD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport5BH.ba" group-title="Sports" tvg-country="BA" tvg-quality="1080p",Arena Sport 5 BH [BA] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport5BH/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport8.hr" group-title="Sports" tvg-country="HR" tvg-quality="1080p",Arena Sport 8 [HR] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/AS8HRHD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport6.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport 6 [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaSport6HD/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSportPremium1BH.ba" group-title="Sports" tvg-country="BA" tvg-quality="1080p",Arena Sport Premium 1 BH [BA] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/ArenaPremium1BH/index.m3u8
-#EXTINF:-1 tvg-id="ArenaSport9.hr" group-title="Sports" tvg-country="HR" tvg-quality="1080p",Arena Sport 9 [HR] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/AS9HRHD/index.m3u8
 #EXTINF:-1 tvg-id="AreWeThereYet.us" group-title="Series" tvg-country="US" tvg-quality="1080p",Are We There Yet? [US] [1080p]
 https://amg00353-lionsgatestudio-arewethereyet-samsunguk-6h2ju.amagi.tv/playlist/amg00353-lionsgatestudio-arewethereyet-samsunguk/playlist.m3u8
 #EXTINF:-1 tvg-id="ArirangTV.kr" group-title="News" tvg-country="KR" tvg-quality="1080p",Arirang TV [KR] [1080p]
 http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="ArenaSportAdrenalin.rs" group-title="Sports" tvg-country="RS" tvg-quality="1080p",Arena Sport Adrenalin [RS] [1080p]
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3
-https://nl1.nghk.ai/SK3SRHD/index.m3u8
 #EXTINF:-1 tvg-id="ArirangUN.kr" group-title="News" tvg-country="KR" tvg-quality="1080p",Arirang TV UN [KR] [1080p]
 https://amdlive-ch02-ctnd-com.akamaized.net/arirang_2ch/smil:arirang_2ch.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="Arkhyz24.ru" tvg-country="RU" tvg-quality="1080p",Архыз 24 [RU] [1080p]
