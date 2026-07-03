@@ -2,21 +2,20 @@
 Auto-update FHD+ IPTV playlist.
 1. Fetch fresh streams from iptv-org API
 2. Filter FHD+ (1080p, 2160p, 4320p)
-3. Test URLs concurrently, remove dead ones
+3. Test URLs with iptv-checker (ffprobe-based, honors per-channel UA/referrer), remove dead ones
 4. Add EPG guide URLs
 5. Write final M3U with metadata
 """
-import json, os, re
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import json, os, re, shutil, subprocess, tempfile
 from urllib.request import Request, urlopen
 
 STREAMS_API = "https://iptv-org.github.io/api/streams.json"
 CHANNELS_API = "https://iptv-org.github.io/api/channels.json"
 OUT = os.path.join(os.path.dirname(__file__), "fhd_channels.m3u")
 README = os.path.join(os.path.dirname(__file__), "README.md")
-WORKERS = 100
-TIMEOUT = 10
 FHD_QUALITIES = {"1080p", "2160p", "4320p"}
+CHECKER_PARALLEL = 50
+CHECKER_TIMEOUT_MS = 15000
 
 # EPG sources by country code — publicly available XMLTV guides
 EPG_SOURCES = {
@@ -47,21 +46,68 @@ def fetch_json(url):
         return json.loads(r.read().decode("utf-8"))
 
 
-def check_url(url):
-    try:
-        req = Request(url, method="HEAD")
-        req.add_header("User-Agent", "Mozilla/5.0")
-        resp = urlopen(req, timeout=TIMEOUT)
-        return resp.status < 400
-    except Exception:
-        try:
-            req = Request(url)
-            req.add_header("User-Agent", "Mozilla/5.0")
-            req.add_header("Range", "bytes=0-1024")
-            resp = urlopen(req, timeout=TIMEOUT)
-            return resp.status < 400
-        except Exception:
-            return False
+def build_entry(s, ch_map):
+    """Render one stream as an m3u EXTINF+url block, iptv-checker style headers included."""
+    title = s.get("title") or "Unknown"
+    quality = s.get("quality", "")
+    url = s.get("url", "")
+    ch_id = s.get("channel")
+
+    group, country = "", ""
+    if ch_id and ch_id in ch_map:
+        c = ch_map[ch_id]
+        cats = c.get("categories", [])
+        group = cats[0].title() if cats else ""
+        country = c.get("country", "")
+
+    attrs = f'tvg-id="{ch_id or ""}"'
+    if group:
+        attrs += f' group-title="{group}"'
+    if country:
+        attrs += f' tvg-country="{country}"'
+
+    display = f"{title} [{country}] [{quality}]" if country else f"{title} [{quality}]"
+
+    lines = [f"#EXTINF:-1 {attrs},{display}"]
+    if s.get("referrer"):
+        lines.append(f'#EXTVLCOPT:http-referrer={s["referrer"]}')
+    if s.get("user_agent"):
+        lines.append(f'#EXTVLCOPT:http-user-agent={s["user_agent"]}')
+    lines.append(url)
+    return "\n".join(lines)
+
+
+def run_iptv_checker(m3u_text):
+    """Runs the freearhey/iptv-checker CLI (ffprobe-based) and returns the surviving m3u body."""
+    workdir = tempfile.mkdtemp(prefix="iptv-checker-")
+    infile = os.path.join(workdir, "in.m3u")
+    outdir = os.path.join(workdir, "out")
+    with open(infile, "w", encoding="utf-8") as f:
+        f.write("#EXTM3U\n" + m3u_text)
+
+    npx = shutil.which("npx") or "npx"
+    subprocess.run(
+        [
+            npx, "--yes", "iptv-checker", infile,
+            "-o", outdir,
+            "-p", str(CHECKER_PARALLEL),
+            "-t", str(CHECKER_TIMEOUT_MS),
+        ],
+        check=True,
+        shell=(os.name == "nt"),
+    )
+
+    online_path = os.path.join(outdir, "online.m3u")
+    with open(online_path, "r", encoding="utf-8") as f:
+        online = f.read()
+
+    shutil.rmtree(workdir, ignore_errors=True)
+
+    # strip the bare "#EXTM3U" header the checker writes
+    lines = online.split("\n")
+    if lines and lines[0].strip() == "#EXTM3U":
+        lines = lines[1:]
+    return "\n".join(lines).strip()
 
 
 def main():
@@ -80,82 +126,44 @@ def main():
     fhd = [s for s in fhd if not (s.get("channel") and s["channel"] in ch_map and ch_map[s["channel"]].get("is_nsfw"))]
     print(f"  FHD+ (non-NSFW): {len(fhd)}")
 
-    # Test URLs
-    print(f"Testing {len(fhd)} URLs with {WORKERS} workers...")
-    alive = []
-    dead = 0
-    done = 0
+    raw_m3u = "\n".join(build_entry(s, ch_map) for s in fhd)
 
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = {pool.submit(check_url, s["url"]): s for s in fhd}
-        for fut in as_completed(futures):
-            s = futures[fut]
-            done += 1
-            if fut.result():
-                alive.append(s)
-            else:
-                dead += 1
-            if done % 500 == 0 or done == len(fhd):
-                print(f"  {done}/{len(fhd)} — {len(alive)} alive, {dead} dead")
+    print(f"Checking {len(fhd)} streams with iptv-checker (ffprobe)...")
+    survivors_m3u = run_iptv_checker(raw_m3u)
+    alive_count = survivors_m3u.count("#EXTINF")
+    print(f"  {alive_count} alive, {len(fhd) - alive_count} dead removed")
 
-    # Collect EPG URLs needed
-    epg_urls = set()
-    for s in alive:
-        ch_id = s.get("channel")
-        if ch_id and ch_id in ch_map:
-            co = ch_map[ch_id].get("country", "")
-            if co in EPG_SOURCES:
-                epg_urls.add(EPG_SOURCES[co])
-
-    # Build M3U
-    epg_str = ",".join(sorted(epg_urls))
-    lines = [f'#EXTM3U url-tvg="{epg_str}" refresh="14400"']
-
+    # Recompute EPG sources / stats from surviving tvg-id's
     from collections import Counter
     countries = Counter()
     categories = Counter()
     q_counts = Counter()
+    epg_urls = set()
 
-    for s in alive:
-        title = s.get("title") or "Unknown"
-        quality = s.get("quality", "")
-        url = s.get("url", "")
-        ch_id = s.get("channel")
-
-        group = ""
-        country = ""
+    for line in survivors_m3u.split("\n"):
+        if not line.startswith("#EXTINF"):
+            continue
+        m = re.search(r'tvg-id="([^"]*)"', line)
+        ch_id = m.group(1) if m else ""
+        qm = re.search(r"\[(\d+p)\]", line)
+        if qm:
+            q_counts[qm.group(1)] += 1
         if ch_id and ch_id in ch_map:
             c = ch_map[ch_id]
-            cats = c.get("categories", [])
-            group = cats[0].title() if cats else ""
             country = c.get("country", "")
-            countries[country] += 1
-            for cat in cats:
+            if country:
+                countries[country] += 1
+                if country in EPG_SOURCES:
+                    epg_urls.add(EPG_SOURCES[country])
+            for cat in c.get("categories", []):
                 categories[cat] += 1
-        q_counts[quality] += 1
 
-        attrs = f'tvg-id="{ch_id or ""}"'
-        if group:
-            attrs += f' group-title="{group}"'
-        if country:
-            attrs += f' tvg-country="{country}"'
-
-        display = f"{title} [{quality}]"
-        if country:
-            display = f"{title} [{country}] [{quality}]"
-
-        lines.append(f"#EXTINF:-1 {attrs},{display}")
-        if s.get("referrer"):
-            lines.append(f'#EXTVLCOPT:http-referrer={s["referrer"]}')
-        if s.get("user_agent"):
-            lines.append(f'#EXTVLCOPT:http-user-agent={s["user_agent"]}')
-        lines.append(url)
-
-    m3u = "\n".join(lines)
+    epg_str = ",".join(sorted(epg_urls))
+    m3u = f'#EXTM3U url-tvg="{epg_str}" refresh="14400"\n' + survivors_m3u + "\n"
     with open(OUT, "w", encoding="utf-8") as f:
         f.write(m3u)
 
-    print(f"\nDone! {len(alive)} working channels, {dead} dead removed.")
+    print(f"\nDone! {alive_count} working channels.")
     print(f"EPG sources: {len(epg_urls)}")
 
     # Update README
@@ -163,7 +171,7 @@ def main():
     top_cats = categories.most_common(10)
     readme = f"""# IPTV FHD+ Playlist
 
-**{len(alive):,} Free Full HD & 4K IPTV Channels** (auto-updated daily)
+**{alive_count:,} Free Full HD & 4K IPTV Channels** (auto-updated daily)
 
 Filtered from [iptv-org/iptv](https://github.com/iptv-org/iptv) — only 1080p+ working streams.
 
@@ -190,7 +198,7 @@ EPG (program guide) is included automatically for supported countries.
     for cat, n in top_cats:
         readme += f"| {cat.title()} | {n:,} |\n"
 
-    readme += f"""
+    readme += """
 | Top Countries | Channels |
 |---------------|----------|
 """
@@ -202,7 +210,7 @@ EPG (program guide) is included automatically for supported countries.
 
 This playlist is updated daily via GitHub Actions:
 - Fresh streams fetched from iptv-org API
-- Dead channels automatically removed
+- Dead channels removed via [iptv-checker](https://github.com/freearhey/iptv-checker) (real ffprobe playback test, not just HTTP status)
 - EPG guide data included for 17 countries
 
 ## Source
