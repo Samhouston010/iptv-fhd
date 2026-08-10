@@ -1,6 +1,6 @@
 # IPTV FHD+ Playlist
 
-**3,862 Free Full HD & 4K IPTV Channels** (auto-updated daily)
+**3,843 Free Full HD & 4K IPTV Channels** (auto-updated daily)
 
 Filtered from [iptv-org/iptv](https://github.com/iptv-org/iptv) — only 1080p+ working streams.
 
@@ -19,38 +19,38 @@ EPG (program guide) is included automatically for supported countries.
 | Quality | Channels |
 |---------|----------|
 | 4K (2160p) | 13 |
-| FHD (1080p) | 3,849 |
+| FHD (1080p) | 3,830 |
 
 | Category | Count |
 |----------|-------|
 | General | 726 |
-| News | 382 |
-| Music | 302 |
-| Entertainment | 231 |
-| Religious | 211 |
-| Sports | 203 |
+| News | 398 |
+| Music | 300 |
+| Entertainment | 223 |
+| Religious | 210 |
+| Sports | 205 |
 | Movies | 179 |
-| Series | 137 |
-| Documentary | 105 |
-| Kids | 98 |
+| Series | 138 |
+| Documentary | 106 |
+| Kids | 101 |
 
 | Top Countries | Channels |
 |---------------|----------|
-| US | 833 |
-| RU | 226 |
-| IN | 146 |
-| FR | 117 |
+| US | 823 |
+| RU | 221 |
+| IN | 161 |
+| FR | 114 |
 | UK | 103 |
 | ES | 100 |
-| DE | 95 |
 | CA | 93 |
-| UA | 75 |
+| DE | 92 |
 | NL | 75 |
-| DO | 66 |
-| IT | 63 |
-| MX | 63 |
-| TR | 51 |
-| SA | 48 |
+| UA | 73 |
+| DO | 64 |
+| MX | 61 |
+| IT | 59 |
+| TR | 52 |
+| CL | 45 |
 
 ## Auto-Update
 
