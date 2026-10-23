@@ -24,33 +24,33 @@ EPG (program guide) is included automatically for supported countries.
 | Category | Count |
 |----------|-------|
 | General | 695 |
-| News | 399 |
-| Music | 284 |
-| Religious | 237 |
-| Entertainment | 220 |
+| News | 395 |
+| Music | 287 |
+| Religious | 234 |
+| Entertainment | 217 |
 | Sports | 187 |
-| Movies | 167 |
-| Series | 131 |
+| Movies | 170 |
+| Series | 133 |
 | Documentary | 93 |
-| Kids | 91 |
+| Kids | 92 |
 
 | Top Countries | Channels |
 |---------------|----------|
-| US | 707 |
-| IN | 212 |
-| RU | 148 |
-| CO | 119 |
-| FR | 93 |
+| US | 709 |
+| IN | 205 |
+| RU | 150 |
+| CO | 118 |
+| FR | 94 |
 | UA | 90 |
-| DE | 88 |
-| ES | 87 |
+| DE | 87 |
+| ES | 84 |
 | CA | 83 |
-| UK | 81 |
-| IT | 78 |
-| MX | 77 |
-| DO | 65 |
-| NL | 64 |
-| AR | 50 |
+| MX | 81 |
+| UK | 80 |
+| IT | 79 |
+| NL | 63 |
+| DO | 63 |
+| AR | 53 |
 
 ## Auto-Update
 
